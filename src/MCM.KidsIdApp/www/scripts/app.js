@@ -7,7 +7,7 @@ var app = angular.module('mcmapp', ['ionic', 'ionic-datepicker'])
 app.factory('storageService', function ($window, $injector) {
     //Could also have used a provider for this instead of a factory, but then we can't use the $injector
     // for instantiating the storage service implementation which is annoying.
-    if ($window.tinyHippos) {
+    if ($window.tinyHippos || !window.cordova) {
         console.log("Detected Ripple emulator. Using InMemoryStorageService instead of FileStorageService.");
         return $injector.get('inMemoryStorageService');
     } else {
@@ -65,56 +65,57 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
     .state('forgotPassword', {
         url: '/forgotpassword',
-        templateUrl: 'templates/forgotpassword.html',
-        controller: 'forgotPasswordController'
+        templateUrl: 'templates/forgotpassword.html'
     })
 
     .state('landing', {
         url: '/landing',
-        templateUrl: 'templates/landingpage.html',
-        controller: 'landingController'
+        templateUrl: 'templates/landingpage.html'
     })
 
     .state('instructionIndex', {
       url: '/instructionindex',
-      templateUrl: 'templates/instructionindex.html',
-      controller: 'instructionIndexController'
+      templateUrl: 'templates/instructionindex.html'
     })
 
     .state('childProfileList', {
       url: '/childprofilelist',
-      templateUrl: 'templates/childprofilelist.html',
-      controller: 'childProfileListController'
+      templateUrl: 'templates/childprofilelist.html'
     })
 
     .state('childProfileItem', {
         url: '/childprofileitem/:childId',
-      templateUrl: 'templates/childprofileitem.html',
-      controller: 'childProfileItemController'
+      templateUrl: 'templates/childprofileitem.html'
     })
 
     .state('settings', {
       url: '/settings',
       templateUrl: 'templates/settingspage.html',
-      controller: 'settingsController'
     })
 
     .state('about', {
       url: '/about',
-      templateUrl: 'templates/aboutpage.html',
-      controller: 'aboutController'
+      templateUrl: 'templates/aboutpage.html'
     })
 
     .state('basicDetails', {
         url: '/basicDetails/:childId',
-        templateUrl: 'templates/basicdetails.html',
-        controller: 'basicDetailsController'
+        templateUrl: 'templates/basicdetails.html'
     })
 
-    .state('photos', {
+    .state('photos', { 
         url: '/photos/:childId',
-        templateUrl: 'templates/photos.html',
-        controller: 'photosController'
+        templateUrl: 'templates/photos.html'
+    })
+    
+    .state('idChecklist', {
+        url: 'idchecklist/:childId',
+        templateUrl: 'templates/idchecklist.html'
+    })
+
+    .state('physicalDetails', {
+        url: '/physicalDetails/:childId',
+        templateUrl: 'templates/physicaldetails.html'
     })
 
     // if none of the above states are matched, use this as the fallback
